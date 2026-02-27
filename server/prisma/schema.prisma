@@ -1,0 +1,135 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  ADMIN
+  PURCHASE_MANAGER
+  PRODUCTION_MANAGER
+  SALES_MANAGER
+}
+
+enum ProductType {
+  RAW_MATERIAL
+  FINISHED_GOOD
+}
+
+enum PurchaseOrderStatus {
+  PENDING
+  RECEIVED
+}
+
+enum CustomerOrderStatus {
+  PENDING
+  COMPLETED
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role     @default(ADMIN)
+  createdAt DateTime @default(now())
+}
+
+model Customer {
+  id        String          @id @default(cuid())
+  name      String
+  phone     String?
+  email     String?
+  address   String?
+  createdAt DateTime        @default(now())
+  orders    CustomerOrder[]
+}
+
+model Vendor {
+  id             String          @id @default(cuid())
+  name           String
+  phone          String?
+  email          String?
+  address        String?
+  createdAt      DateTime        @default(now())
+  purchaseOrders PurchaseOrder[]
+}
+
+model Product {
+  id            String              @id @default(cuid())
+  name          String
+  type          ProductType
+  unit          String
+  createdAt     DateTime            @default(now())
+  inventory     Inventory?
+  bomAsFinished BillOfMaterial[]    @relation("FinishedProduct")
+  bomAsRaw      BillOfMaterial[]    @relation("RawMaterial")
+  purchaseItems PurchaseOrderItem[]
+  customerItems CustomerOrderItem[]
+  productions   Production[]
+}
+
+model Inventory {
+  id        String   @id @default(cuid())
+  productId String   @unique
+  quantity  Float    @default(0)
+  updatedAt DateTime @updatedAt
+  product   Product  @relation(fields: [productId], references: [id])
+}
+
+model BillOfMaterial {
+  id                String  @id @default(cuid())
+  finishedProductId String
+  rawMaterialId     String
+  quantityRequired  Float
+  finishedProduct   Product @relation("FinishedProduct", fields: [finishedProductId], references: [id])
+  rawMaterial       Product @relation("RawMaterial", fields: [rawMaterialId], references: [id])
+
+  @@unique([finishedProductId, rawMaterialId])
+}
+
+model PurchaseOrder {
+  id        String              @id @default(cuid())
+  vendorId  String
+  status    PurchaseOrderStatus @default(PENDING)
+  createdAt DateTime            @default(now())
+  vendor    Vendor              @relation(fields: [vendorId], references: [id])
+  items     PurchaseOrderItem[]
+}
+
+model PurchaseOrderItem {
+  id              String        @id @default(cuid())
+  purchaseOrderId String
+  productId       String
+  quantity        Float
+  purchaseOrder   PurchaseOrder @relation(fields: [purchaseOrderId], references: [id])
+  product         Product       @relation(fields: [productId], references: [id])
+}
+
+model Production {
+  id                String   @id @default(cuid())
+  finishedProductId String
+  quantityProduced  Float
+  createdAt         DateTime @default(now())
+  finishedProduct   Product  @relation(fields: [finishedProductId], references: [id])
+}
+
+model CustomerOrder {
+  id         String              @id @default(cuid())
+  customerId String
+  status     CustomerOrderStatus @default(PENDING)
+  createdAt  DateTime            @default(now())
+  customer   Customer            @relation(fields: [customerId], references: [id])
+  items      CustomerOrderItem[]
+}
+
+model CustomerOrderItem {
+  id              String        @id @default(cuid())
+  customerOrderId String
+  productId       String
+  quantity        Float
+  customerOrder   CustomerOrder @relation(fields: [customerOrderId], references: [id])
+  product         Product       @relation(fields: [productId], references: [id])
+}
