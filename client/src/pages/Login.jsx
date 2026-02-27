@@ -35,43 +35,43 @@ export default function Login() {
     <div className="mx-auto flex min-h-screen max-w-6xl items-center px-6 py-16">
       <div className="grid w-full gap-10 lg:grid-cols-[1.1fr_0.9fr]">
         <div className="space-y-6">
-          <p className="text-xs uppercase tracking-[0.4em] text-white/50">Streleam ERP</p>
-          <h1 className="font-serif text-4xl text-white">Welcome back to your manufacturing command center.</h1>
-          <p className="text-white/60">
+          <p className="text-xs uppercase tracking-[0.4em] text-carbon-900">Strelema ERP</p>
+          <h1 className="font-serif text-4xl text-carbon-900">Welcome back to your manufacturing command center.</h1>
+          <p className="text-carbon-900">
             Log in to orchestrate orders, production, and inventory in one unified workspace.
           </p>
-          <div className="rounded-3xl border border-white/10 bg-white/5 p-6 text-sm text-white/70">
-            <p className="text-xs uppercase tracking-[0.3em] text-white/50">Demo Credentials</p>
+          <div className="rounded-3xl border border-black/10 bg-black/5 p-6 text-sm text-carbon-900">
+            <p className="text-xs uppercase tracking-[0.3em] text-carbon-900">Demo Credentials</p>
             <div className="mt-4 space-y-3">
               <div className="flex items-center justify-between gap-3">
-                <span className="text-white">Admin</span>
+                <span className="text-carbon-900">Admin</span>
                 <span>admin@erp.com / admin123</span>
               </div>
               <div className="flex items-center justify-between gap-3">
-                <span className="text-white">Purchase</span>
+                <span className="text-carbon-900">Purchase</span>
                 <span>purchase@erp.com / purchase123</span>
               </div>
               <div className="flex items-center justify-between gap-3">
-                <span className="text-white">Production</span>
+                <span className="text-carbon-900">Production</span>
                 <span>production@erp.com / production123</span>
               </div>
               <div className="flex items-center justify-between gap-3">
-                <span className="text-white">Sales</span>
+                <span className="text-carbon-900">Sales</span>
                 <span>sales@erp.com / sales123</span>
               </div>
             </div>
           </div>
         </div>
-        <form onSubmit={onSubmit} className="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-card">
-          <h2 className="text-2xl font-semibold text-white">Login</h2>
-          <p className="mt-2 text-sm text-white/60">Use your admin or manager credentials.</p>
+        <form onSubmit={onSubmit} className="rounded-3xl border border-black/10 bg-black/5 p-8 shadow-card">
+          <h2 className="text-2xl font-semibold text-carbon-900">Login</h2>
+          <p className="mt-2 text-sm text-carbon-900">Use your admin or manager credentials.</p>
           <div className="mt-6 space-y-4">
             <input
               name="email"
               type="email"
               value={form.email}
               onChange={onChange}
-              className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white"
+              className="w-full rounded-2xl border border-black/10 bg-black/5 px-4 py-3 text-sm text-carbon-900"
               placeholder="Email"
               required
             />
@@ -80,22 +80,22 @@ export default function Login() {
               type="password"
               value={form.password}
               onChange={onChange}
-              className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white"
+              className="w-full rounded-2xl border border-black/10 bg-black/5 px-4 py-3 text-sm text-carbon-900"
               placeholder="Password"
               required
             />
           </div>
-          {error && <p className="mt-4 text-sm text-rose-300">{error}</p>}
+          {error && <p className="mt-4 text-sm text-carbon-900">{error}</p>}
           <button
             type="submit"
             disabled={loading}
-            className="mt-6 w-full rounded-full bg-aqua-600 px-6 py-3 text-sm font-medium text-ink-900 shadow-glow"
+            className="mt-6 w-full rounded-full bg-aqua-600 px-6 py-3 text-sm font-medium text-carbon-900 shadow-glow"
           >
             {loading ? "Signing in..." : "Sign in"}
           </button>
-          <p className="mt-6 text-xs text-white/60">
+          <p className="mt-6 text-xs text-carbon-900">
             New here?{" "}
-            <Link to="/signup" className="text-aqua-400">
+            <Link to="/signup" className="text-carbon-900">
               Create an account
             </Link>
           </p>

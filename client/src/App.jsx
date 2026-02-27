@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Lenis from "lenis";
@@ -22,6 +22,9 @@ export default function App() {
   const dispatch = useDispatch();
   const location = useLocation();
   const user = useSelector((state) => state.auth.user);
+  const [theme, setTheme] = useState(
+    localStorage.getItem("streleam_theme") || "light"
+  );
 
   useEffect(() => {
     const lenis = new Lenis({
@@ -41,6 +44,16 @@ export default function App() {
       lenis.destroy();
     };
   }, []);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (theme === "dark") {
+      root.classList.add("dark");
+    } else {
+      root.classList.remove("dark");
+    }
+    localStorage.setItem("streleam_theme", theme);
+  }, [theme]);
 
   useEffect(() => {
     const existingToken = getToken();
@@ -67,7 +80,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-ink-900 text-white">
+    <div className="min-h-screen bg-ink-900 text-carbon-900 transition-colors duration-300">
       <div className="pointer-events-none fixed inset-0 overflow-hidden">
         <div className="absolute -left-32 -top-24 h-72 w-72 rounded-full bg-aqua-600/20 blur-[120px]" />
         <div className="absolute right-0 top-40 h-80 w-80 rounded-full bg-sun-500/20 blur-[160px]" />
@@ -77,7 +90,7 @@ export default function App() {
       <div className="relative flex min-h-screen">
         {!isAuthRoute && <Sidebar />}
         <div className="flex min-h-screen flex-1 flex-col">
-          {!isAuthRoute && <Topbar />}
+          {!isAuthRoute && <Topbar theme={theme} setTheme={setTheme} />}
           <main className={isAuthRoute ? "flex-1" : "flex-1 px-6 pb-16 pt-6 md:px-10"}>
             <Routes>
               <Route path="/" element={<Navigate to="/dashboard" replace />} />

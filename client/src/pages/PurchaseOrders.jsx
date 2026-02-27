@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SectionCard from "../components/SectionCard";
 import DataTable from "../components/DataTable";
+import { SkeletonTable } from "../components/Skeleton";
 import StatusPill from "../components/StatusPill";
 import { api } from "../lib/api";
 
@@ -10,6 +11,7 @@ export default function PurchaseOrders() {
   const [purchaseOrders, setPurchaseOrders] = useState([]);
   const [form, setForm] = useState({ vendorId: "", productId: "", quantity: "" });
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const loadData = async () => {
     const [vendorList, productList, orders] = await Promise.all([
@@ -23,7 +25,9 @@ export default function PurchaseOrders() {
   };
 
   useEffect(() => {
-    loadData().catch(() => {});
+    loadData()
+      .catch(() => {})
+      .finally(() => setLoading(false));
   }, []);
 
   const submitPO = async (event) => {
@@ -67,12 +71,12 @@ export default function PurchaseOrders() {
         row.status === "PENDING" ? (
           <button
             onClick={() => inwardPO(row.id)}
-            className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs uppercase tracking-[0.2em] text-white/70"
+            className="rounded-full border border-black/20 bg-black/10 px-3 py-1 text-xs uppercase tracking-[0.2em] text-carbon-900"
           >
             Inward
           </button>
         ) : (
-          <span className="text-xs text-white/50">Received</span>
+          <span className="text-xs text-carbon-900">Received</span>
         )
     }
   ];
@@ -83,52 +87,52 @@ export default function PurchaseOrders() {
         <form className="grid gap-4" onSubmit={submitPO}>
           <div className="grid gap-3 md:grid-cols-2">
             <select
-              className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white"
+              className="w-full rounded-2xl border border-black/10 bg-black/5 px-4 py-3 text-sm text-carbon-900"
               value={form.vendorId}
               onChange={(event) => setForm({ ...form, vendorId: event.target.value })}
               required
             >
-              <option value="" className="text-ink-900">
+              <option value="" className="text-carbon-900">
                 Select vendor
               </option>
               {vendors.map((vendor) => (
-                <option key={vendor.id} value={vendor.id} className="text-ink-900">
+                <option key={vendor.id} value={vendor.id} className="text-carbon-900">
                   {vendor.name}
                 </option>
               ))}
             </select>
             <select
-              className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white"
+              className="w-full rounded-2xl border border-black/10 bg-black/5 px-4 py-3 text-sm text-carbon-900"
               value={form.productId}
               onChange={(event) => setForm({ ...form, productId: event.target.value })}
               required
             >
-              <option value="" className="text-ink-900">
+              <option value="" className="text-carbon-900">
                 Select raw material
               </option>
               {products.map((item) => (
-                <option key={item.id} value={item.id} className="text-ink-900">
+                <option key={item.id} value={item.id} className="text-carbon-900">
                   {item.name}
                 </option>
               ))}
             </select>
           </div>
           <input
-            className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white"
+            className="w-full rounded-2xl border border-black/10 bg-black/5 px-4 py-3 text-sm text-carbon-900"
             placeholder="Quantity"
             value={form.quantity}
             onChange={(event) => setForm({ ...form, quantity: event.target.value })}
             required
           />
-          <button type="submit" className="rounded-full bg-aqua-600 px-6 py-3 text-sm font-medium text-ink-900 shadow-glow">
+          <button type="submit" className="rounded-full bg-aqua-600 px-6 py-3 text-sm font-medium text-carbon-900 shadow-glow">
             Create Purchase Order
           </button>
-          {message && <p className="text-xs text-aqua-300">{message}</p>}
+          {message && <p className="text-xs text-carbon-900">{message}</p>}
         </form>
       </SectionCard>
 
       <SectionCard title="Open Purchase Orders" subtitle="Track inbound raw materials">
-        <DataTable columns={columns} rows={purchaseOrders} />
+        {loading ? <SkeletonTable /> : <DataTable columns={columns} rows={purchaseOrders} />}
       </SectionCard>
     </div>
   );

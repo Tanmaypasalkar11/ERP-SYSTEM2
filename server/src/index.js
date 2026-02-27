@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
+import compression from "compression";
 import { env } from "./config/env.js";
 import { errorHandler } from "./middlewares/errorHandler.js";
 import authRoutes from "./routes/auth.js";
@@ -35,6 +36,7 @@ app.use(
 );
 app.use(express.json({ limit: "2mb" }));
 app.use(helmet());
+app.use(compression());
 app.use(
   rateLimit({
     windowMs: 60 * 1000,

@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./index.html", "./src/**/*.{js,jsx}"] ,
+  darkMode: "class",
+  content: ["./index.html", "./src/**/*.{js,jsx}"],
   theme: {
     extend: {
       fontFamily: {
@@ -10,23 +11,31 @@ export default {
       },
       colors: {
         ink: {
-          900: "#0b1115",
-          800: "#121a1f",
-          700: "#1b262d",
-          500: "#2b3a42"
+          900: "rgb(var(--ink-900) / <alpha-value>)",
+          800: "rgb(var(--ink-800) / <alpha-value>)",
+          700: "rgb(var(--ink-700) / <alpha-value>)",
+          500: "rgb(var(--ink-500) / <alpha-value>)"
+        },
+        carbon: {
+          900: "rgb(var(--carbon-900) / <alpha-value>)",
+          800: "rgb(var(--carbon-800) / <alpha-value>)",
+          700: "rgb(var(--carbon-700) / <alpha-value>)",
+          600: "rgb(var(--carbon-600) / <alpha-value>)",
+          500: "rgb(var(--carbon-500) / <alpha-value>)"
         },
         aqua: {
-          600: "#1fb6a6",
-          400: "#4fd1c5"
+          600: "rgb(var(--aqua-600) / <alpha-value>)",
+          400: "rgb(var(--aqua-400) / <alpha-value>)"
         },
         sun: {
-          500: "#f6b73c",
-          300: "#ffd277"
+          500: "rgb(var(--sun-500) / <alpha-value>)",
+          300: "rgb(var(--sun-300) / <alpha-value>)"
         }
       },
       boxShadow: {
         glow: "0 30px 60px rgba(31, 182, 166, 0.25)",
-        card: "0 20px 50px rgba(11, 17, 21, 0.25)"
+        card:
+          "0 18px 36px rgb(var(--shadow-card) / 0.22), 0 0 14px rgb(var(--shadow-card) / 0.16)"
       },
       keyframes: {
         float: {

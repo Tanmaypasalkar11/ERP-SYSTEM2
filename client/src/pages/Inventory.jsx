@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import SectionCard from "../components/SectionCard";
 import DataTable from "../components/DataTable";
+import { SkeletonTable } from "../components/Skeleton";
 import { api } from "../lib/api";
 
 export default function Inventory() {
   const [inventory, setInventory] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const loadData = async () => {
     const data = await api.inventory();
@@ -12,7 +14,9 @@ export default function Inventory() {
   };
 
   useEffect(() => {
-    loadData().catch(() => {});
+    loadData()
+      .catch(() => {})
+      .finally(() => setLoading(false));
   }, []);
 
   const columns = [
@@ -25,7 +29,7 @@ export default function Inventory() {
   return (
     <div className="space-y-6">
       <SectionCard title="Inventory Snapshot" subtitle="Raw materials and finished goods">
-        <DataTable columns={columns} rows={inventory} />
+        {loading ? <SkeletonTable /> : <DataTable columns={columns} rows={inventory} />}
       </SectionCard>
     </div>
   );

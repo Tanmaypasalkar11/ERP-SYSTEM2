@@ -5,7 +5,45 @@
 @tailwind utilities;
 
 :root {
+  color-scheme: light;
+  --ink-900: 246 241 231;
+  --ink-800: 242 232 217;
+  --ink-700: 234 220 200;
+  --ink-500: 220 201 176;
+
+  --carbon-900: 0 0 0;
+  --carbon-800: 0 0 0;
+  --carbon-700: 0 0 0;
+  --carbon-600: 0 0 0;
+  --carbon-500: 0 0 0;
+
+  --aqua-600: 47 143 138;
+  --aqua-400: 79 179 173;
+  --sun-500: 199 155 59;
+  --sun-300: 228 191 106;
+
+  --shadow-card: 42 32 18;
+}
+
+.dark {
   color-scheme: dark;
+  --ink-900: 11 17 21;
+  --ink-800: 18 26 31;
+  --ink-700: 27 38 45;
+  --ink-500: 43 58 66;
+
+  --carbon-900: 242 236 226;
+  --carbon-800: 225 217 204;
+  --carbon-700: 203 193 176;
+  --carbon-600: 176 165 150;
+  --carbon-500: 150 138 122;
+
+  --aqua-600: 31 182 166;
+  --aqua-400: 79 209 197;
+  --sun-500: 246 183 60;
+  --sun-300: 255 210 119;
+
+  --shadow-card: 238 226 205;
 }
 
 * {
@@ -14,7 +52,8 @@
 
 body {
   font-family: "Inter", system-ui, sans-serif;
-  background: #0b1115;
+  background: rgb(var(--ink-900));
+  color: rgb(var(--carbon-900));
 }
 
 ::-webkit-scrollbar {
@@ -22,16 +61,16 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #10161b;
+  background: rgb(var(--ink-800));
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1fb6a6;
+  background: rgb(var(--sun-500));
   border-radius: 999px;
 }
 
 .glass-panel {
-  background: rgba(18, 26, 31, 0.75);
+  background: rgb(var(--ink-900) / 0.8);
   backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgb(var(--carbon-900) / 0.08);
 }
