@@ -4,7 +4,8 @@ export async function createProduct(req, res, next) {
   try {
     const { name, type, unit, bom } = req.body;
 
-    const product = await prisma.$transaction(async (tx) => {
+    const product = await prisma.$transaction(
+      async (tx) => {
       const created = await tx.product.create({
         data: { name, type, unit }
       });
@@ -39,8 +40,10 @@ export async function createProduct(req, res, next) {
         });
       }
 
-      return created;
-    });
+        return created;
+      },
+      { timeout: 15000, maxWait: 5000 }
+    );
 
     res.status(201).json(product);
   } catch (err) {

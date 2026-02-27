@@ -5,7 +5,8 @@ export async function createPurchaseOrder(req, res, next) {
   try {
     const { vendorId, items } = req.body;
 
-    const purchaseOrder = await prisma.$transaction(async (tx) => {
+    const purchaseOrder = await prisma.$transaction(
+      async (tx) => {
       const vendor = await tx.vendor.findUnique({ where: { id: vendorId } });
       if (!vendor) {
         throw Object.assign(new Error("Vendor not found"), { status: 404 });
@@ -24,7 +25,7 @@ export async function createPurchaseOrder(req, res, next) {
         throw Object.assign(new Error("Purchase orders must contain raw materials only"), { status: 400 });
       }
 
-      return tx.purchaseOrder.create({
+        return tx.purchaseOrder.create({
         data: {
           vendorId,
           status: "PENDING",
@@ -36,8 +37,10 @@ export async function createPurchaseOrder(req, res, next) {
           }
         },
         include: { items: true, vendor: true }
-      });
-    });
+        });
+      },
+      { timeout: 15000, maxWait: 5000 }
+    );
 
     res.status(201).json(purchaseOrder);
   } catch (err) {

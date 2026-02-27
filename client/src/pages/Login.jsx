@@ -40,6 +40,27 @@ export default function Login() {
           <p className="text-white/60">
             Log in to orchestrate orders, production, and inventory in one unified workspace.
           </p>
+          <div className="rounded-3xl border border-white/10 bg-white/5 p-6 text-sm text-white/70">
+            <p className="text-xs uppercase tracking-[0.3em] text-white/50">Demo Credentials</p>
+            <div className="mt-4 space-y-3">
+              <div className="flex items-center justify-between gap-3">
+                <span className="text-white">Admin</span>
+                <span>admin@erp.com / admin123</span>
+              </div>
+              <div className="flex items-center justify-between gap-3">
+                <span className="text-white">Purchase</span>
+                <span>purchase@erp.com / purchase123</span>
+              </div>
+              <div className="flex items-center justify-between gap-3">
+                <span className="text-white">Production</span>
+                <span>production@erp.com / production123</span>
+              </div>
+              <div className="flex items-center justify-between gap-3">
+                <span className="text-white">Sales</span>
+                <span>sales@erp.com / sales123</span>
+              </div>
+            </div>
+          </div>
         </div>
         <form onSubmit={onSubmit} className="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-card">
           <h2 className="text-2xl font-semibold text-white">Login</h2>

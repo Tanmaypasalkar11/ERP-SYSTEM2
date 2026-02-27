@@ -75,10 +75,11 @@ async function main() {
     }
     productMap[pd.name] = product;
 
-    const existingInventory = await prisma.inventory.findUnique({ where: { productId: product.id } });
-    if (!existingInventory) {
-      await prisma.inventory.create({ data: { productId: product.id, quantity: 0 } });
-    }
+    await prisma.inventory.upsert({
+      where: { productId: product.id },
+      update: { quantity: 50 },
+      create: { productId: product.id, quantity: 50 }
+    });
   }
   console.log("  ✓ Products + Inventory initialized");
 

@@ -5,7 +5,8 @@ export async function createCustomerOrder(req, res, next) {
   try {
     const { customerId, items } = req.body;
 
-    const order = await prisma.$transaction(async (tx) => {
+    const order = await prisma.$transaction(
+      async (tx) => {
       const customer = await tx.customer.findUnique({ where: { id: customerId } });
       if (!customer) {
         throw Object.assign(new Error("Customer not found"), { status: 404 });
@@ -22,7 +23,7 @@ export async function createCustomerOrder(req, res, next) {
         throw Object.assign(new Error("Customer orders must contain finished goods only"), { status: 400 });
       }
 
-      return tx.customerOrder.create({
+        return tx.customerOrder.create({
         data: {
           customerId,
           status: "PENDING",
@@ -34,8 +35,10 @@ export async function createCustomerOrder(req, res, next) {
           }
         },
         include: { items: true, customer: true }
-      });
-    });
+        });
+      },
+      { timeout: 15000, maxWait: 5000 }
+    );
 
     res.status(201).json(order);
   } catch (err) {
@@ -59,7 +62,8 @@ export async function completeCustomerOrder(req, res, next) {
   try {
     const orderId = req.params.id;
 
-    const result = await prisma.$transaction(async (tx) => {
+    const result = await prisma.$transaction(
+      async (tx) => {
       const order = await tx.customerOrder.findUnique({
         where: { id: orderId },
         include: { items: true }
@@ -77,11 +81,13 @@ export async function completeCustomerOrder(req, res, next) {
         await decreaseInventory(tx, item.productId, item.quantity);
       }
 
-      return tx.customerOrder.update({
+        return tx.customerOrder.update({
         where: { id: orderId },
         data: { status: "COMPLETED" }
-      });
-    });
+        });
+      },
+      { timeout: 15000, maxWait: 5000 }
+    );
 
     res.json(result);
   } catch (err) {

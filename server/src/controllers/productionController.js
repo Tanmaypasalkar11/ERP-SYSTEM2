@@ -5,7 +5,8 @@ export async function createProduction(req, res, next) {
   try {
     const { finishedProductId, quantityProduced } = req.body;
 
-    const result = await prisma.$transaction(async (tx) => {
+    const result = await prisma.$transaction(
+      async (tx) => {
       const product = await tx.product.findUnique({ where: { id: finishedProductId } });
       if (!product || product.type !== "FINISHED_GOOD") {
         throw Object.assign(new Error("Finished product not found"), { status: 404 });
@@ -30,13 +31,15 @@ export async function createProduction(req, res, next) {
 
       await increaseInventory(tx, finishedProductId, quantityProduced);
 
-      return tx.production.create({
+        return tx.production.create({
         data: {
           finishedProductId,
           quantityProduced
         }
-      });
-    });
+        });
+      },
+      { timeout: 15000, maxWait: 5000 }
+    );
 
     res.status(201).json(result);
   } catch (err) {
