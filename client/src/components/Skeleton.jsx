@@ -1,39 +1,30 @@
 import React from "react";
-import clsx from "clsx";
+import { Paper, Skeleton, Stack } from "@mui/material";
 
-export function SkeletonLine({ className }) {
-  return (
-    <div
-      className={clsx(
-        "h-3 w-full animate-pulse rounded-full bg-black/10 dark:bg-white/10",
-        className
-      )}
-    />
-  );
+export function SkeletonLine({ height = 12 }) {
+  return <Skeleton variant="rounded" height={height} />;
 }
 
 export function SkeletonCard({ lines = 3 }) {
   return (
-    <div className="rounded-3xl border border-black/10 bg-black/5 p-6 shadow-card dark:border-white/10 dark:bg-white/5">
-      <div className="space-y-3">
+    <Paper sx={{ p: 3 }}>
+      <Stack spacing={1.5}>
         {Array.from({ length: lines }).map((_, index) => (
-          <SkeletonLine key={index} className={index === 0 ? "h-4" : "h-3"} />
+          <SkeletonLine key={index} height={index === 0 ? 18 : 12} />
         ))}
-      </div>
-    </div>
+      </Stack>
+    </Paper>
   );
 }
 
 export function SkeletonTable({ rows = 5 }) {
   return (
-    <div className="overflow-hidden rounded-2xl border border-black/10 dark:border-white/10">
-      <div className="divide-y divide-black/10 dark:divide-white/10">
+    <Paper sx={{ boxShadow: "none", border: "1px solid", borderColor: "divider" }}>
+      <Stack spacing={1.5} sx={{ p: 3 }}>
         {Array.from({ length: rows }).map((_, index) => (
-          <div key={index} className="px-4 py-4">
-            <SkeletonLine className="h-3" />
-          </div>
+          <SkeletonLine key={index} height={14} />
         ))}
-      </div>
-    </div>
+      </Stack>
+    </Paper>
   );
 }

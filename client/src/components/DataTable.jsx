@@ -1,30 +1,42 @@
 import React from "react";
+import {
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography
+} from "@mui/material";
 
 export default function DataTable({ columns, rows }) {
   return (
-    <div className="overflow-hidden rounded-2xl border border-black/10">
-      <table className="w-full border-collapse text-left text-sm">
-        <thead className="bg-black/5 text-xs uppercase tracking-[0.3em] text-carbon-900">
-          <tr>
+    <TableContainer component={Paper} sx={{ boxShadow: "none", border: "1px solid", borderColor: "divider" }}>
+      <Table size="small">
+        <TableHead>
+          <TableRow sx={{ backgroundColor: "rgba(0,0,0,0.03)" }}>
             {columns.map((column) => (
-              <th key={column.key} className="px-4 py-3 font-medium">
-                {column.label}
-              </th>
+              <TableCell key={column.key}>
+                <Typography variant="overline" sx={{ letterSpacing: "0.3em" }}>
+                  {column.label}
+                </Typography>
+              </TableCell>
             ))}
-          </tr>
-        </thead>
-        <tbody className="divide-y divide-black/10 dark:divide-white/10">
+          </TableRow>
+        </TableHead>
+        <TableBody>
           {rows.map((row) => (
-            <tr key={row.id} className="bg-ink-900/40 dark:bg-ink-800/70">
+            <TableRow key={row.id} hover>
               {columns.map((column) => (
-                <td key={column.key} className="px-4 py-3 text-carbon-900">
+                <TableCell key={column.key}>
                   {column.render ? column.render(row) : row[column.key]}
-                </td>
+                </TableCell>
               ))}
-            </tr>
+            </TableRow>
           ))}
-        </tbody>
-      </table>
-    </div>
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 }

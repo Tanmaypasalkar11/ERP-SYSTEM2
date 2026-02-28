@@ -78,7 +78,7 @@ export default function Products() {
         <form className="grid gap-4" onSubmit={submitProduct}>
           <div className="grid gap-3 md:grid-cols-2">
             <input
-              className="w-full rounded-2xl border border-black/10 bg-black/5 px-4 py-3 text-sm text-carbon-900"
+              className="surface-input"
               placeholder="Product name"
               value={form.name}
               onChange={(event) =>
@@ -87,7 +87,7 @@ export default function Products() {
               required
             />
             <input
-              className="w-full rounded-2xl border border-black/10 bg-black/5 px-4 py-3 text-sm text-carbon-900"
+              className="surface-input"
               placeholder="Unit (kg, pcs)"
               value={form.unit}
               onChange={(event) =>
@@ -97,7 +97,7 @@ export default function Products() {
             />
           </div>
           <select
-            className="w-full rounded-2xl border border-black/10 bg-black/5 px-4 py-3 text-sm text-carbon-900"
+            className="surface-input"
             value={form.type}
             onChange={(event) => setForm({ ...form, type: event.target.value })}
           >
@@ -110,11 +110,11 @@ export default function Products() {
           </select>
 
           {form.type === "FINISHED_GOOD" && (
-            <div className="space-y-3 rounded-2xl border border-black/10 bg-black/5 p-4">
+            <div className="surface-panel space-y-3 p-4">
               <p className="text-sm text-carbon-900">Bill of Material</p>
               <div className="grid gap-3 md:grid-cols-2">
                 <select
-                  className="w-full rounded-2xl border border-black/10 bg-black/5 px-4 py-3 text-sm text-carbon-900"
+                  className="surface-input"
                   value={bomLine.rawMaterialId}
                   onChange={(event) =>
                     setBomLine({
@@ -137,7 +137,7 @@ export default function Products() {
                   ))}
                 </select>
                 <input
-                  className="w-full rounded-2xl border border-black/10 bg-black/5 px-4 py-3 text-sm text-carbon-900"
+                  className="surface-input"
                   placeholder="Qty required"
                   value={bomLine.quantityRequired}
                   onChange={(event) =>
@@ -151,7 +151,7 @@ export default function Products() {
               <button
                 type="button"
                 onClick={addBomLine}
-                className="rounded-full border border-black/20 bg-black/10 px-4 py-2 text-xs uppercase tracking-[0.3em] text-carbon-900"
+                className="surface-pill"
               >
                 Add BOM Line
               </button>
@@ -175,7 +175,7 @@ export default function Products() {
 
           <button
             type="submit"
-            className="rounded-full bg-aqua-600 px-6 py-3 text-sm font-medium text-carbon-900 shadow-glow"
+            className="surface-button"
           >
             Create Product
           </button>

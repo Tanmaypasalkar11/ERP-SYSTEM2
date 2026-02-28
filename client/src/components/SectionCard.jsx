@@ -1,13 +1,18 @@
 import React from "react";
+import { Paper, Stack, Typography } from "@mui/material";
 
 export default function SectionCard({ title, subtitle, children }) {
   return (
-    <section className="rounded-3xl border border-white/20 bg-ink-800/70 p-6 shadow-card">
-      <div className="flex flex-col gap-1">
-        <h3 className="text-lg font-semibold text-carbon-900">{title}</h3>
-        {subtitle && <p className="text-sm text-carbon-300">{subtitle}</p>}
-      </div>
+    <Paper sx={{ p: 3 }}>
+      <Stack spacing={0.5}>
+        <Typography variant="h6">{title}</Typography>
+        {subtitle && (
+          <Typography variant="body2" color="text.secondary">
+            {subtitle}
+          </Typography>
+        )}
+      </Stack>
       <div className="mt-6">{children}</div>
-    </section>
+    </Paper>
   );
 }

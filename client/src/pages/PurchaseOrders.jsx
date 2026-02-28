@@ -71,12 +71,12 @@ export default function PurchaseOrders() {
         row.status === "PENDING" ? (
           <button
             onClick={() => inwardPO(row.id)}
-            className="rounded-full border border-black/20 bg-black/10 px-3 py-1 text-xs uppercase tracking-[0.2em] text-carbon-900"
+            className="surface-pill px-3 py-1"
           >
             Inward
           </button>
         ) : (
-          <span className="text-xs text-carbon-900">Received</span>
+          <span className="text-xs text-carbon-900/70">Received</span>
         )
     }
   ];
@@ -87,7 +87,7 @@ export default function PurchaseOrders() {
         <form className="grid gap-4" onSubmit={submitPO}>
           <div className="grid gap-3 md:grid-cols-2">
             <select
-              className="w-full rounded-2xl border border-black/10 bg-black/5 px-4 py-3 text-sm text-carbon-900"
+              className="surface-input"
               value={form.vendorId}
               onChange={(event) => setForm({ ...form, vendorId: event.target.value })}
               required
@@ -102,7 +102,7 @@ export default function PurchaseOrders() {
               ))}
             </select>
             <select
-              className="w-full rounded-2xl border border-black/10 bg-black/5 px-4 py-3 text-sm text-carbon-900"
+              className="surface-input"
               value={form.productId}
               onChange={(event) => setForm({ ...form, productId: event.target.value })}
               required
@@ -118,13 +118,13 @@ export default function PurchaseOrders() {
             </select>
           </div>
           <input
-            className="w-full rounded-2xl border border-black/10 bg-black/5 px-4 py-3 text-sm text-carbon-900"
+            className="surface-input"
             placeholder="Quantity"
             value={form.quantity}
             onChange={(event) => setForm({ ...form, quantity: event.target.value })}
             required
           />
-          <button type="submit" className="rounded-full bg-aqua-600 px-6 py-3 text-sm font-medium text-carbon-900 shadow-glow">
+          <button type="submit" className="surface-button">
             Create Purchase Order
           </button>
           {message && <p className="text-xs text-carbon-900">{message}</p>}

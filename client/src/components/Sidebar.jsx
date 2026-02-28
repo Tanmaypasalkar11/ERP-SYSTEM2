@@ -33,8 +33,8 @@ export default function Sidebar() {
   return (
     <aside className="hidden w-72 shrink-0 border-r border-black/10 bg-ink-800/70 px-6 py-8 backdrop-blur-xl lg:block">
       <div className="mb-10">
-        <p className="text-sm uppercase tracking-[0.4em] text-carbon-900">Strelema</p>
-        <h1 className="mt-3 font-serif text-3xl text-carbon-900">Manufacturing ERP</h1>
+        <p className="text-xs uppercase tracking-[0.5em] text-carbon-900/70">Strelema</p>
+        <h1 className="mt-3 font-display text-3xl text-carbon-900">Manufacturing ERP</h1>
       </div>
       <nav className="space-y-2">
         {visibleItems.map(({ to, label, icon: Icon }) => (
@@ -44,8 +44,8 @@ export default function Sidebar() {
             className={({ isActive }) =>
               `flex items-center gap-3 rounded-2xl px-4 py-3 text-sm transition ${
                 isActive
-                  ? "bg-black/10 text-carbon-900 shadow-glow"
-                  : "text-carbon-900 hover:bg-black/5 hover:text-carbon-900"
+                  ? "bg-ink-700/60 text-carbon-900 shadow-glow ring-1 ring-black/10"
+                  : "text-carbon-900/80 hover:bg-ink-700/40 hover:text-carbon-900"
               }`
             }
           >
@@ -54,8 +54,8 @@ export default function Sidebar() {
           </NavLink>
         ))}
       </nav>
-      <div className="mt-10 rounded-2xl border border-black/10 bg-black/5 p-4 text-xs text-carbon-900">
-        <p className="text-carbon-900">Workflow</p>
+      <div className="surface-panel mt-10 p-4 text-xs text-carbon-900">
+        <p className="text-carbon-900/70">Workflow</p>
         <p className="mt-2">Order → Purchase → Inward → Production → Sale</p>
       </div>
     </aside>

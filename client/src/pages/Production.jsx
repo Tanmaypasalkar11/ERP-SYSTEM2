@@ -52,7 +52,7 @@ export default function Production() {
       <SectionCard title="Create Production" subtitle="Consume raw materials based on BOM">
         <form className="grid gap-4" onSubmit={submitProduction}>
           <select
-            className="w-full rounded-2xl border border-black/10 bg-black/5 px-4 py-3 text-sm text-carbon-900"
+            className="surface-input"
             value={form.finishedProductId}
             onChange={(event) => setForm({ ...form, finishedProductId: event.target.value })}
             required
@@ -67,13 +67,13 @@ export default function Production() {
             ))}
           </select>
           <input
-            className="w-full rounded-2xl border border-black/10 bg-black/5 px-4 py-3 text-sm text-carbon-900"
+            className="surface-input"
             placeholder="Quantity produced"
             value={form.quantityProduced}
             onChange={(event) => setForm({ ...form, quantityProduced: event.target.value })}
             required
           />
-          <button type="submit" className="rounded-full bg-aqua-600 px-6 py-3 text-sm font-medium text-carbon-900 shadow-glow">
+          <button type="submit" className="surface-button">
             Run Production
           </button>
           {message && <p className="text-xs text-carbon-900">{message}</p>}

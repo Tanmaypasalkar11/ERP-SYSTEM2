@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { ThemeProvider } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import Lenis from "lenis";
 import Sidebar from "./components/Sidebar";
@@ -17,6 +18,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import { api, getToken, setToken } from "./lib/api";
 import { setAuth, clearAuth } from "./features/authSlice";
+import buildTheme from "./theme/muiTheme";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -79,99 +81,103 @@ export default function App() {
     return children;
   };
 
-  return (
-    <div className="min-h-screen bg-ink-900 text-carbon-900 transition-colors duration-300">
-      <div className="pointer-events-none fixed inset-0 overflow-hidden">
-        <div className="absolute -left-32 -top-24 h-72 w-72 rounded-full bg-aqua-600/20 blur-[120px]" />
-        <div className="absolute right-0 top-40 h-80 w-80 rounded-full bg-sun-500/20 blur-[160px]" />
-        <div className="absolute bottom-0 left-1/3 h-96 w-96 rounded-full bg-aqua-400/10 blur-[200px]" />
-      </div>
+  const muiTheme = useMemo(() => buildTheme(theme === "dark" ? "dark" : "light"), [theme]);
 
-      <div className="relative flex min-h-screen">
-        {!isAuthRoute && <Sidebar />}
-        <div className="flex min-h-screen flex-1 flex-col">
-          {!isAuthRoute && <Topbar theme={theme} setTheme={setTheme} />}
-          <main className={isAuthRoute ? "flex-1" : "flex-1 px-6 pb-16 pt-6 md:px-10"}>
-            <Routes>
-              <Route path="/" element={<Navigate to="/dashboard" replace />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} />
-              <Route
-                path="/dashboard"
-                element={
-                  <RequireAuth>
-                    <Dashboard />
-                  </RequireAuth>
-                }
-              />
-              <Route
-                path="/customers"
-                element={
-                  <RequireAuth>
-                    <Customers />
-                  </RequireAuth>
-                }
-              />
-              <Route
-                path="/vendors"
-                element={
-                  <RequireAuth>
-                    <Vendors />
-                  </RequireAuth>
-                }
-              />
-              <Route
-                path="/products"
-                element={
-                  <RequireAuth>
-                    <Products />
-                  </RequireAuth>
-                }
-              />
-              <Route
-                path="/inventory"
-                element={
-                  <RequireAuth>
-                    <Inventory />
-                  </RequireAuth>
-                }
-              />
-              <Route
-                path="/purchase-orders"
-                element={
-                  <RequireAuth>
-                    <PurchaseOrders />
-                  </RequireAuth>
-                }
-              />
-              <Route
-                path="/production"
-                element={
-                  <RequireAuth>
-                    <Production />
-                  </RequireAuth>
-                }
-              />
-              <Route
-                path="/customer-orders"
-                element={
-                  <RequireAuth>
-                    <CustomerOrders />
-                  </RequireAuth>
-                }
-              />
-              <Route
-                path="/reports"
-                element={
-                  <RequireAuth>
-                    <Reports />
-                  </RequireAuth>
-                }
-              />
-            </Routes>
-          </main>
+  return (
+    <ThemeProvider theme={muiTheme}>
+      <div className="min-h-screen bg-ink-900 text-carbon-900 transition-colors duration-300">
+        <div className="pointer-events-none fixed inset-0 overflow-hidden">
+          <div className="absolute -left-40 -top-24 h-96 w-96 rounded-full bg-sun-300/25 blur-[140px]" />
+          <div className="absolute -right-24 top-24 h-[26rem] w-[26rem] rounded-full bg-aqua-400/20 blur-[160px]" />
+          <div className="absolute bottom-[-20%] left-1/4 h-[28rem] w-[28rem] rounded-full bg-aqua-600/15 blur-[200px]" />
+        </div>
+
+        <div className="relative flex min-h-screen">
+          {!isAuthRoute && <Sidebar />}
+          <div className="flex min-h-screen flex-1 flex-col">
+            {!isAuthRoute && <Topbar theme={theme} setTheme={setTheme} />}
+            <main className={isAuthRoute ? "flex-1" : "flex-1 px-6 pb-16 pt-6 md:px-10"}>
+              <Routes>
+                <Route path="/" element={<Navigate to="/dashboard" replace />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Signup />} />
+                <Route
+                  path="/dashboard"
+                  element={
+                    <RequireAuth>
+                      <Dashboard />
+                    </RequireAuth>
+                  }
+                />
+                <Route
+                  path="/customers"
+                  element={
+                    <RequireAuth>
+                      <Customers />
+                    </RequireAuth>
+                  }
+                />
+                <Route
+                  path="/vendors"
+                  element={
+                    <RequireAuth>
+                      <Vendors />
+                    </RequireAuth>
+                  }
+                />
+                <Route
+                  path="/products"
+                  element={
+                    <RequireAuth>
+                      <Products />
+                    </RequireAuth>
+                  }
+                />
+                <Route
+                  path="/inventory"
+                  element={
+                    <RequireAuth>
+                      <Inventory />
+                    </RequireAuth>
+                  }
+                />
+                <Route
+                  path="/purchase-orders"
+                  element={
+                    <RequireAuth>
+                      <PurchaseOrders />
+                    </RequireAuth>
+                  }
+                />
+                <Route
+                  path="/production"
+                  element={
+                    <RequireAuth>
+                      <Production />
+                    </RequireAuth>
+                  }
+                />
+                <Route
+                  path="/customer-orders"
+                  element={
+                    <RequireAuth>
+                      <CustomerOrders />
+                    </RequireAuth>
+                  }
+                />
+                <Route
+                  path="/reports"
+                  element={
+                    <RequireAuth>
+                      <Reports />
+                    </RequireAuth>
+                  }
+                />
+              </Routes>
+            </main>
+          </div>
         </div>
       </div>
-    </div>
+    </ThemeProvider>
   );
 }

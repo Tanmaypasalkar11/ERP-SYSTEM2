@@ -1,6 +1,17 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link as RouterLink } from "react-router-dom";
+import {
+  Box,
+  Button,
+  Container,
+  Divider,
+  Link,
+  Paper,
+  Stack,
+  TextField,
+  Typography
+} from "@mui/material";
 import { api, setToken } from "../lib/api";
 import { setAuth } from "../features/authSlice";
 
@@ -31,63 +42,97 @@ export default function Signup() {
     }
   };
 
+  const inputSx = {
+    "& .MuiOutlinedInput-root": {
+      backgroundColor: (theme) =>
+        theme.palette.mode === "dark" ? "rgba(255,255,255,0.06)" : "rgba(255,255,255,0.6)",
+      borderRadius: "16px"
+    }
+  };
+
   return (
-    <div className="mx-auto flex min-h-screen max-w-6xl items-center px-6 py-16">
-      <div className="grid w-full gap-10 lg:grid-cols-[1.1fr_0.9fr]">
-        <div className="space-y-6">
-          <p className="text-xs uppercase tracking-[0.4em] text-carbon-900">Strelema ERP</p>
-          <h1 className="font-serif text-4xl text-carbon-900">Create your ops workspace.</h1>
-          <p className="text-carbon-900">
-            The first account becomes Admin. Use it to manage your teams and workflows.
-          </p>
-        </div>
-        <form onSubmit={onSubmit} className="rounded-3xl border border-black/10 bg-black/5 p-8 shadow-card">
-          <h2 className="text-2xl font-semibold text-carbon-900">Sign up</h2>
-          <p className="mt-2 text-sm text-carbon-900">Set up a secure admin profile.</p>
-          <div className="mt-6 space-y-4">
-            <input
-              name="name"
-              value={form.name}
-              onChange={onChange}
-              className="w-full rounded-2xl border border-black/10 bg-black/5 px-4 py-3 text-sm text-carbon-900"
-              placeholder="Full name"
-              required
-            />
-            <input
-              name="email"
-              type="email"
-              value={form.email}
-              onChange={onChange}
-              className="w-full rounded-2xl border border-black/10 bg-black/5 px-4 py-3 text-sm text-carbon-900"
-              placeholder="Email"
-              required
-            />
-            <input
-              name="password"
-              type="password"
-              value={form.password}
-              onChange={onChange}
-              className="w-full rounded-2xl border border-black/10 bg-black/5 px-4 py-3 text-sm text-carbon-900"
-              placeholder="Password (min 8 chars)"
-              required
-            />
-          </div>
-          {error && <p className="mt-4 text-sm text-carbon-900">{error}</p>}
-          <button
-            type="submit"
-            disabled={loading}
-            className="mt-6 w-full rounded-full bg-aqua-600 px-6 py-3 text-sm font-medium text-carbon-900 shadow-glow"
-          >
-            {loading ? "Creating..." : "Create account"}
-          </button>
-          <p className="mt-6 text-xs text-carbon-900">
-            Already have an account?{" "}
-            <Link to="/login" className="text-carbon-900">
-              Sign in
-            </Link>
-          </p>
-        </form>
-      </div>
-    </div>
+    <Container maxWidth="lg" sx={{ minHeight: "100vh", display: "flex", alignItems: "center", py: { xs: 6, md: 10 } }}>
+      <Box
+        sx={{
+          width: "100%",
+            display: "grid",
+            gap: { xs: 4, md: 6 },
+            gridTemplateColumns: { xs: "1fr", md: "1.1fr 0.9fr" }
+          }}
+        >
+          <Box>
+            <Typography variant="overline" sx={{ letterSpacing: "0.5em", color: "text.secondary" }}>
+              Strelema ERP
+            </Typography>
+            <Typography variant="h3" sx={{ mt: 2 }}>
+              Create your ops workspace.
+            </Typography>
+            <Typography sx={{ mt: 1.5, color: "text.secondary" }}>
+              The first account becomes Admin. Use it to manage your teams and workflows.
+            </Typography>
+          </Box>
+
+          <Paper component="form" onSubmit={onSubmit} sx={{ p: { xs: 3, md: 4 } }}>
+            <Typography variant="h5" fontWeight={600}>
+              Sign up
+            </Typography>
+            <Typography sx={{ mt: 1, color: "text.secondary" }}>
+              Set up a secure admin profile.
+            </Typography>
+            <Stack spacing={2} sx={{ mt: 3 }}>
+              <TextField
+                name="name"
+                value={form.name}
+                onChange={onChange}
+                placeholder="Full name"
+                fullWidth
+                required
+                sx={inputSx}
+              />
+              <TextField
+                name="email"
+                type="email"
+                value={form.email}
+                onChange={onChange}
+                placeholder="Email"
+                fullWidth
+                required
+                sx={inputSx}
+              />
+              <TextField
+                name="password"
+                type="password"
+                value={form.password}
+                onChange={onChange}
+                placeholder="Password (min 8 chars)"
+                fullWidth
+                required
+                sx={inputSx}
+              />
+            </Stack>
+            {error && (
+              <Typography sx={{ mt: 2, color: "text.primary" }}>
+                {error}
+              </Typography>
+            )}
+            <Button
+              type="submit"
+              variant="contained"
+              disabled={loading}
+              sx={{ mt: 3, py: 1.2 }}
+              fullWidth
+            >
+              {loading ? "Creating..." : "Create account"}
+            </Button>
+            <Divider sx={{ my: 3 }} />
+            <Typography variant="body2" sx={{ color: "text.secondary" }}>
+              Already have an account?{" "}
+              <Link component={RouterLink} to="/login" underline="none" color="text.primary">
+                Sign in
+              </Link>
+            </Typography>
+          </Paper>
+        </Box>
+      </Container>
   );
 }

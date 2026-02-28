@@ -46,7 +46,7 @@ export default function Vendors() {
       <SectionCard title="Add Vendor" subtitle="Create a new supplier">
         <form className="grid gap-4" onSubmit={submitVendor}>
           <input
-            className="w-full rounded-2xl border border-black/10 bg-black/5 px-4 py-3 text-sm text-carbon-900"
+            className="surface-input"
             placeholder="Vendor name"
             value={form.name}
             onChange={(event) => setForm({ ...form, name: event.target.value })}
@@ -54,25 +54,25 @@ export default function Vendors() {
           />
           <div className="grid gap-3 md:grid-cols-2">
             <input
-              className="w-full rounded-2xl border border-black/10 bg-black/5 px-4 py-3 text-sm text-carbon-900"
+              className="surface-input"
               placeholder="Phone"
               value={form.phone}
               onChange={(event) => setForm({ ...form, phone: event.target.value })}
             />
             <input
-              className="w-full rounded-2xl border border-black/10 bg-black/5 px-4 py-3 text-sm text-carbon-900"
+              className="surface-input"
               placeholder="Email"
               value={form.email}
               onChange={(event) => setForm({ ...form, email: event.target.value })}
             />
           </div>
           <textarea
-            className="min-h-[90px] w-full rounded-2xl border border-black/10 bg-black/5 px-4 py-3 text-sm text-carbon-900"
+            className="surface-input min-h-[90px]"
             placeholder="Address"
             value={form.address}
             onChange={(event) => setForm({ ...form, address: event.target.value })}
           />
-          <button type="submit" className="rounded-full bg-aqua-600 px-6 py-3 text-sm font-medium text-carbon-900 shadow-glow">
+          <button type="submit" className="surface-button">
             Add Vendor
           </button>
           {message && <p className="text-xs text-carbon-900">{message}</p>}
