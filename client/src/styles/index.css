@@ -61,8 +61,13 @@ body {
     radial-gradient(circle at 85% 10%, rgb(var(--aqua-400) / 0.18), transparent 48%),
     radial-gradient(circle at 50% 90%, rgb(var(--aqua-600) / 0.12), transparent 55%),
     rgb(var(--ink-900));
-  background-attachment: fixed;
   color: rgb(var(--carbon-900));
+}
+
+@media (min-width: 1024px) {
+  body {
+    background-attachment: fixed;
+  }
 }
 
 ::-webkit-scrollbar {

@@ -20,18 +20,22 @@ export default function Topbar({ theme, setTheme }) {
   return (
     <header className="sticky top-0 z-20 border-b border-black/10 bg-ink-900/80 px-6 py-6 backdrop-blur md:px-10">
       <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-      <div>
-        <p className="text-xs uppercase tracking-[0.45em] text-carbon-900/60">Operations Hub</p>
-        <h2 className="mt-2 font-display text-3xl text-carbon-900">Welcome back, Team Strelema</h2>
-        <p className="mt-1 text-sm text-carbon-900/70">
-          {today.toLocaleDateString("en-US", {
-            weekday: "long",
-            month: "long",
-            day: "numeric",
-            year: "numeric"
-          })}
-        </p>
-      </div>
+        <div>
+          <p className="text-xs uppercase tracking-[0.45em] text-carbon-900/60">
+            Operations Hub
+          </p>
+          <h2 className="mt-2 font-display text-3xl text-carbon-900">
+            Welcome back, Team Strelema
+          </h2>
+          <p className="mt-1 text-sm text-carbon-900/70">
+            {today.toLocaleDateString("en-US", {
+              weekday: "long",
+              month: "long",
+              day: "numeric",
+              year: "numeric",
+            })}
+          </p>
+        </div>
         <div className="flex flex-wrap items-center gap-3">
           <button
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
@@ -40,7 +44,10 @@ export default function Topbar({ theme, setTheme }) {
           >
             {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
           </button>
-          <button className="surface-panel flex h-12 w-12 items-center justify-center text-carbon-900 shadow-card">
+          <button
+            className="surface-panel flex h-12 w-12 items-center justify-center text-carbon-900 shadow-card"
+            aria-label="Notifications"
+          >
             <Bell size={18} />
           </button>
           <div className="surface-panel flex items-center gap-3 px-4 py-2 shadow-card">
@@ -50,7 +57,10 @@ export default function Topbar({ theme, setTheme }) {
               <p className="text-carbon-900/70">{user?.role || ""}</p>
             </div>
           </div>
-          <button onClick={onLogout} className="surface-pill flex items-center gap-2 shadow-card">
+          <button
+            onClick={onLogout}
+            className="surface-pill flex items-center gap-2 shadow-card"
+          >
             <LogOut size={14} />
             Logout
           </button>
